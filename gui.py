@@ -1,5 +1,5 @@
 # USE THIS TO INSTALL STUFF: "pip install PySide2 pyqtgraph"
-from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QLayout, QVBoxLayout, QHBoxLayout, QGridLayout, QSizePolicy, QLabel, QMainWindow, QFrame, QTabWidget, QComboBox, QLineEdit
+from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QGridLayout, QLabel, QMainWindow, QTabWidget, QLineEdit
 from PySide2.QtCore import QTimer
 import pyqtgraph as pg
 from pyqtgraph import PlotWidget, plot
@@ -63,18 +63,26 @@ tabs.addTab(tab3, "Tab 3")
 
 # add data to graph
 def PlotCSV():
-    line.clear()
+    global graph
+    global line
+    errorOutput.setText("")
+    graph.getPlotItem().clear()
+    x.clear()
+    y.clear()
     try:
         csv = open(fileLocation.text(), 'r') #open csv for reading
         pairs = csv.read().splitlines()
         for pair in pairs:
             x.append(float(pair.split(',')[0]))
             y.append(float(pair.split(',')[1]))
+        line = graph.plot(x, y, pen = pen)
     except FileNotFoundError:
         errorOutput.setText(fileLocation.text() + " Not Found (Try sine.csv)")
-    line.setData(x, y)
 
-openFileButton.released.connect(PlotCSV)
+def ClearPlot():
+    graph.getPlotItem().clear()
+
+openFileButton.released.connect(PlotCSV) #Plot is updated from csv file when this button is released
 
 
 # Window Setup
