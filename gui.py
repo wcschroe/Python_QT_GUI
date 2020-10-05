@@ -1,4 +1,3 @@
-# USE THIS TO INSTALL STUFF: "pip install PySide2 pyqtgraph"
 from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QGridLayout, QLabel, QMainWindow, QTabWidget, QLineEdit
 from PySide2.QtCore import QTimer
 import pyqtgraph as pg
